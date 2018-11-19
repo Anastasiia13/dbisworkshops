@@ -52,7 +52,7 @@ create table CONSULTATION
    CLASSROOM_BUILDING_FK INTEGER              not null,
    CONSULTATION_DATE    DATE                 not null,
    CONSULTATION_TIME    DATE                 not null,
-   CONSULTATION_TYPE    VARCHAR2(14)         not null CHECK (CONSULTATION_TYPE IN ('Групова', 'Індивідуальна'));,
+   CONSULTATION_TYPE    VARCHAR2(14)         not null,
    CONSULTATION_SUBJECT VARCHAR2(100),
    CONSULATION_DURATION INTEGER              not null,
    constraint PK_CONSULTATION primary key (CONSULTATION_ID)
