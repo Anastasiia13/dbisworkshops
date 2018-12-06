@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>class</title>
+</head>
+<body>
+
+    <form action = "/api" method = "POST" id="form_class">
+         <p>Class number <input type = "text" name = "number" value="{{classroom.get('class_number')}}"/></p>
+         <p>Building <input type = "text" name = "build" value="{{classroom.get('building')}}" /></p>
+
+
+     </form>
+
+    <button type="submit" form="form_class" name="action" value="class_update">Submit</button>
+
+</body>
+</html>

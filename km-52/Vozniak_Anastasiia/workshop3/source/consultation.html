@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>user</title>
+</head>
+<body>
+
+
+    <form action = "/api" method = "POST" id="form_consult">
+         <p>Email <input type = "text" name = "email" value="{{consultation.get('user_email')}}"/></p>
+         <p>Subject <input type = "text" name = "subj" value="{{consultation.get('subject')}}" /></p>
+         <p>Begin <input type = "text" name = "begin" value="{{consultation.get('consult_begin')}}" /></p>
+
+
+     </form>
+
+    <button type="submit" form="form_consult" name="action" value="consult_update">Submit</button>
+
+
+</body>
+</html>
