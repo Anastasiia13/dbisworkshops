@@ -1,16 +1,15 @@
-CREATE OR REPLACE PACKAGE consultation_package AS
+create or replace PACKAGE consultation_package AS
 type cons_list is record(
     cons_subject consultation.SUBJECT_NAME_FK%TYPE,
     cons_class consultation.CLASSROOM_NUMBER_FK%type,
     cons_building consultation.CLASSROOM_BUILDING_FK%type,
     cons_begin consultation.CONSULTATION_BEGIN%type,
-    cons_end consultation.CONSULTATION_END%type,
-    cons_id consultation.CONSULTATION_ID%type
+    cons_end consultation.CONSULTATION_END%type
 );
 
-    type consult_list is table of cons_list;
+type consult_list is table of cons_list;
     FUNCTION get_cons_list(u_email IN consultation.USER_EMAIL_FK%type) 
-    RETURN cons_list
+    RETURN consult_list
     PIPELINED;
 
     PROCEDURE add_cons(
@@ -19,14 +18,11 @@ type cons_list is record(
     cons_class IN consultation.CLASSROOM_NUMBER_FK%type,
     cons_building IN consultation.CLASSROOM_BUILDING_FK%type,
     cons_begin IN consultation.CONSULTATION_BEGIN%type,
-    cons_end IN consultation.CONSULTATION_END%type,
-    cons_id IN consultation.CONSULTATION_ID%type
+    cons_end IN consultation.CONSULTATION_END%type
     );
-
     PROCEDURE del_cons (
         cons_id IN consultation.CONSULTATION_ID%type
     );
-
     PROCEDURE update_consult (
     cons_subject consultation.SUBJECT_NAME_FK%TYPE,
     cons_class IN consultation.CLASSROOM_NUMBER_FK%type,
@@ -35,18 +31,20 @@ type cons_list is record(
     cons_end IN consultation.CONSULTATION_END%type,
     cons_id consultation.CONSULTATION_ID%type
     );
-    
-end lection_theme_package;
 
-   
-CREATE OR REPLACE PACKAGE BODY consultation_package AS
-    
-FUNCTION get_cons_list(u_email IN consultation.USER_EMAIL_FK%type) 
+end consultation_package;
+/
+create or replace PACKAGE BODY consultation_package IS
+    FUNCTION get_cons_list(u_email IN consultation.USER_EMAIL_FK%type) 
     RETURN consult_list
     PIPELINED
         is
         cursor cons_cur is 
-        select *
+        select consultation.SUBJECT_NAME_FK,
+        consultation.CLASSROOM_NUMBER_FK,
+        consultation.CLASSROOM_BUILDING_FK,
+        consultation.CONSULTATION_BEGIN,
+        consultation.CONSULTATION_END
         from consultation
         where user_email_fk=u_email;
         begin
@@ -55,7 +53,7 @@ FUNCTION get_cons_list(u_email IN consultation.USER_EMAIL_FK%type)
             pipe row(cur);
         end loop;
 end get_cons_list;
-    
+
 PROCEDURE add_cons(
     u_email IN consultation.USER_EMAIL_FK%type,
     cons_subject IN consultation.SUBJECT_NAME_FK%TYPE,
@@ -64,10 +62,10 @@ PROCEDURE add_cons(
     cons_begin IN consultation.CONSULTATION_BEGIN%type,
     cons_end IN consultation.CONSULTATION_END%type
     )  is
-    
+cons_id integer;
     begin
-    declare cons_id integer;
-    select (max(CONSULTATION_ID)  into cons_id) from consultation;
+    select max (consultation_id) into cons_id
+    from consultation;
     insert into consultation(
     USER_EMAIL_FK,
     SUBJECT_NAME_FK,
@@ -83,10 +81,10 @@ PROCEDURE add_cons(
     cons_building,
     cons_begin,
     cons_end,
-    cons_id
+    cons_id+1
     );
 end add_cons;
-    
+
 PROCEDURE del_cons (
         cons_id IN consultation.CONSULTATION_ID%type
     )is
@@ -112,8 +110,8 @@ PROCEDURE update_consult(
             CONSULTATION_END = cons_end 
     WHERE
         consultation_id = cons_id;
-END update_c_subject; 
+END update_consult; 
+end consultation_package;  
+  
+/
 
-
-
-end consultation_package;    
