@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EDB</title>
+</head>
+<body>
+    <div>
+        <div>
+            <h1>Greetings, {{user_email}}</h1>
+            <a href = '/logout'>Click here to log out</a>
+
+            <form action="http://localhost:5000/" method="POST">
+                <fieldset>
+                    <legend>Please, enter consultation info</legend>
+
+                    {{ form.hidden_tag() }}
+
+                    <div>
+                        <div>
+                            {{ form.subject.label }}     {{ form.subject  }}
+
+                            <br>
+                                {% for message in form.subject .errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ form.classroom.label }}     {{ form.classroom }}
+
+                            <br>
+                                {% for message in form.classroom.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ form.building .label }}     {{ form.building  }}
+
+                            <br>
+                                {% for message in form.building .errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ form.cons_begin.label }}     {{ form.cons_begin }}
+
+                            <br>
+                                {% for message in form.cons_begin.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ form.cons_end.label }}     {{ form.cons_end }}
+
+                            <br>
+                                {% for message in form.cons_end.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+                        <div>
+                            {{ form.operation.label }}     {{ form.operation }}
+
+                            <br>
+                                {% for message in form.operation.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div> {{ is_exist }} </div>
+
+                        {{ form.submit }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

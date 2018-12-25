@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign on</title>
+</head>
+<body>
+    <h1>Sign on</h1>
+
+    <form action="http://localhost:5000/registration" method="POST">
+        <fieldset>
+            <legend>Please, sign on</legend>
+            {{ form.hidden_tag() }}
+            <div>
+                <div>
+                    {{ form.user_role.label }}     {{ form.user_role }}
+
+                    <br>
+                        {% for message in form.user_role.errors %}
+                            <div> {{ message }} </div>
+                        {% endfor %}
+                    <br>
+                </div>
+
+                <div>
+                    {{ form.user_name.label }}     {{ form.user_name }}
+
+                    <br>
+                        {% for message in form.user_name.errors %}
+                            <div> {{ message }} </div>
+                        {% endfor %}
+                    <br>
+                </div>
+
+                <div>
+                    {{ form.mid_name.label }}     {{ form.mid_name }}
+
+                    <br>
+                        {% for message in form.mid_name.errors %}
+                            <div> {{ message }} </div>
+                        {% endfor %}
+                    <br>
+                </div>
+
+                <div>
+                    {{ form.user_surname.label }}     {{ form.user_surname }}
+
+                    <br>
+                        {% for message in form.user_surname.errors %}
+                            <div> {{ message }} </div>
+                        {% endfor %}
+                    <br>
+                </div>
+
+                <div>
+                    {{ form.user_email.label }}     {{ form.user_email }}
+
+                    <br>
+                        {% for message in form.user_email.errors %}
+                            <div> {{ message }} </div>
+                        {% endfor %}
+                    <br>
+                </div>
+
+                <div>
+                    {{ form.user_password.label }}     {{ form.user_password }}
+
+                    <br>
+                        {% for message in form.user_password.errors %}
+                            <div> {{ message }} </div>
+                        {% endfor %}
+                    <br>
+                </div>
+
+                <div> {{ is_unique }} </div>
+
+                {{ form.submit }}
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>

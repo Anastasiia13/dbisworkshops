@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log in</title>
+</head>
+<body>
+    <h1>Sign in</h1>
+
+    <form action="http://localhost:5000/login" method="POST">
+        <fieldset>
+            <legend>Please, sign in</legend>
+
+            {{ form.hidden_tag() }}
+
+            <div>
+                <div>
+                    {{ form.email.label }}     {{ form.email }}
+
+                    <br>
+                        {% for message in form.email.errors %}
+                            <div> {{ message }} </div>
+                        {% endfor %}
+                    <br>
+                </div>
+
+                <div>
+                    {{ form.password.label }}     {{ form.password }}
+
+                    <br>
+                        {% for message in form.password.errors %}
+                            <div> {{ message }} </div>
+                        {% endfor %}
+                    <br>
+                </div>
+           <div> {{ is_exist }} </div>
+
+                {{ form.submit }}
+            </div>
+        </fieldset>
+    </form>
+</body>
+</html>
