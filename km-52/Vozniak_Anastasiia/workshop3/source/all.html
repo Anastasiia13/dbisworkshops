@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>all</title>
+</head>
+<body>
+    <h1>consultation</h1>
+    <table>
+        {% for dict_item in consultation %}
+        <tr><td>{{dict_item}}</td><td>{{consultation[dict_item]}}</td></tr>
+        {% endfor %}
+    </table>
+    <br />
+    <br />
+
+    <h1>classroom</h1>
+    <table>
+        {% for dict_item in classroom %}
+        <tr><td>{{dict_item}}</td><td>{{classroom[dict_item]}}</td></tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>
