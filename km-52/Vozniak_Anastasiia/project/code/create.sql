@@ -1,4 +1,3 @@
-
 ALTER TABLE consultation
    DROP CONSTRAINT fk_subject_consultation;
 
@@ -14,7 +13,7 @@ ALTER TABLE RECORD
 ALTER TABLE RECORD
    DROP CONSTRAINT fk_user_record;
 
-ALTER TABLE "USER"
+ALTER TABLE users
    DROP CONSTRAINT fk_role_user;
 
 ALTER TABLE wishlist
@@ -45,7 +44,7 @@ DROP TABLE subject CASCADE CONSTRAINTS;
 
 DROP INDEX user_has_a_role_fk;
 
-DROP TABLE "USER" CASCADE CONSTRAINTS;
+DROP TABLE users CASCADE CONSTRAINTS;
 
 DROP INDEX on_subject_is_wishlist_fk;
 
@@ -145,9 +144,9 @@ CREATE TABLE subject
 );
 
 /*==============================================================*/
-/* Table: "USER"                                                */
+/* Table: users                                                */
 /*==============================================================*/
-CREATE TABLE "USER" 
+CREATE TABLE users 
 (
    user_role_fk         VARCHAR2(30)         NOT NULL,
    user_name            VARCHAR2(80)         NOT NULL,
@@ -161,7 +160,7 @@ CREATE TABLE "USER"
 /*==============================================================*/
 /* Index: USER_HAS_A_ROLE_FK                                    */
 /*==============================================================*/
-CREATE INDEX user_has_a_role_fk ON "USER" (
+CREATE INDEX user_has_a_role_fk ON users (
    user_role_fk ASC
 );
 
@@ -171,7 +170,8 @@ CREATE INDEX user_has_a_role_fk ON "USER" (
 CREATE TABLE wishlist 
 (
    subject_name_fk1     VARCHAR2(70)         NOT NULL,
-   user_email_fk1       VARCHAR2(150)         NOT NULL,
+   user_email_t       VARCHAR2(150)         NOT NULL,
+   user_email_s       VARCHAR2(150)         NOT NULL,
    wish_date            DATE                 NOT NULL,
    wish_id              INTEGER              NOT NULL,
    CONSTRAINT pk_wishlist PRIMARY KEY (wish_id)
@@ -181,7 +181,7 @@ CREATE TABLE wishlist
 /* Index: STUDENT_HAS_A_WISHLIST_FK                             */
 /*==============================================================*/
 CREATE INDEX student_has_a_wishlist_fk ON wishlist (
-   user_email_fk1 ASC
+   user_email_s ASC
 );
 
 /*==============================================================*/
@@ -201,7 +201,7 @@ ALTER TABLE consultation
 
 ALTER TABLE consultation
    ADD CONSTRAINT fk_user_consultation FOREIGN KEY (user_email_fk)
-      REFERENCES "USER" (user_email);
+      REFERENCES users (user_email);
 
 ALTER TABLE RECORD
    ADD CONSTRAINT fk_consultation_record FOREIGN KEY (consultation_id_fk)
@@ -209,9 +209,9 @@ ALTER TABLE RECORD
 
 ALTER TABLE RECORD
    ADD CONSTRAINT fk_user_record FOREIGN KEY (user_email_fk)
-      REFERENCES "USER" (user_email);
+      REFERENCES users (user_email);
 
-ALTER TABLE "USER"
+ALTER TABLE users
    ADD CONSTRAINT fk_role_user FOREIGN KEY (user_role_fk)
       REFERENCES ROLE (user_role);
 
@@ -220,26 +220,26 @@ ALTER TABLE wishlist
       REFERENCES subject (subject_name);
 
 ALTER TABLE wishlist
-   ADD CONSTRAINT fk_user_wishlist FOREIGN KEY (user_email_fk1)
-      REFERENCES "USER" (user_email);
+   ADD CONSTRAINT fk_user_wishlist FOREIGN KEY (user_email_s)
+      REFERENCES users (user_email);
 
-ALTER TABLE "USER"
+ALTER TABLE users
     ADD CONSTRAINT check_email 
     CHECK (REGEXP_LIKE (user_email, '^[A-Z0-9._-]+@[A-Z0-9._-]+\.[A-Z]{2,4}'));
 
-ALTER TABLE "USER"
+ALTER TABLE users
     ADD CONSTRAINT check_password 
 	CHECK (REGEXP_LIKE(user_password, '^[0-9a-zA-Z]{6,20}'));
 	
-ALTER TABLE "USER"
+ALTER TABLE users
     ADD CONSTRAINT check_name 
     CHECK (REGEXP_LIKE (user_name, '^[ЇІА-Я]{1}[іїа-я]{1,20}'));
 
-ALTER TABLE "USER"
+ALTER TABLE users
     ADD CONSTRAINT check_surname 
     CHECK (REGEXP_LIKE (user_surname, '^[ЇІА-Я]{1}[іїа-я]{1,20}'));	
 	
-ALTER TABLE "USER"
+ALTER TABLE users
     ADD CONSTRAINT check_mid_name 
     CHECK (REGEXP_LIKE (middle_name, '^[ЇІА-Я]{1}[іїа-я]{1,20}'));	
 	
@@ -266,10 +266,7 @@ ALTER TABLE RECORD
 ALTER TABLE consultation
 	ADD CONSTRAINT check_consult_date
 	CHECK (consultation_begin < consultation_end);
-	
-ALTER TABLE ROLE
-	ADD CONSTRAINT check_role_begin_end
-	CHECK (role_begin < role_end);		
+		
 	
 ALTER TABLE classroom
     ADD CONSTRAINT check_class 
@@ -278,13 +275,3 @@ ALTER TABLE classroom
 ALTER TABLE ROLE
 	ADD CONSTRAINT check_role
 	CHECK (user_role='Студент' OR  user_role='Викладач' OR  user_role='Адмін');
-		
-ALTER TABLE RECORD
-	ADD CONSTRAINT check_type
-	CHECK (consult_type='Індивідуальна' OR  consult_type='Групова');
-    
-ALTER TABLE RECORD 
-	ADD CONSTRAINT unique_user_consult
-	UNIQUE  (consultation_id_fk, user_email_fk);
-
-ALTER SESSION SET nls_date_format = 'DD-MM-YYYY HH24:MI';  
