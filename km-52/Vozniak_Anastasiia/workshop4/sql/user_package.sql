@@ -1,64 +1,77 @@
 CREATE OR REPLACE PACKAGE USER_PACKAGE AS
 
     TYPE T_USER IS RECORD (
-    u_role "USER".user_role_fk%type,
-   	u_name "USER".user_name%type,
-    u_mid_name "USER".middle_name%type,
-    u_surname "USER".user_surname%type,
-    u_email "USER".user_email%type,
-	u_password "USER".user_password%type
+    u_role USERs.user_role_fk%type,
+   	u_name USERs.user_name%type,
+    u_mid_name USERs.middle_name%type,
+    u_surname USERs.user_surname%type,
+    u_email USERs.user_email%type
     );
     
     TYPE USER_TABLE IS 
     	TABLE OF T_USER;
         
-    FUNCTION LOG_IN(u_email IN "USER".user_email%type,
-	user_password IN "USER".user_password%type)
+    FUNCTION LOGIN(u_email IN users.user_email%type,
+	u_password IN users.user_password%type)
     	RETURN USER_TABLE PIPELINED;
         
-  PROCEDURE REGISTER(u_role IN "USER".user_role_fk%type,
-   	u_name IN "USER".user_name%type,
-    u_mid_name IN "USER".middle_name%type,
-    u_surname IN "USER".user_surname%type,
-    u_email IN "USER".user_email%type,
-	u_password IN "USER".user_password%type);
+  PROCEDURE REGISTER(u_role IN users.user_role_fk%type,
+   	u_name IN users.user_name%type,
+    u_mid_name IN users.middle_name%type,
+    u_surname IN users.user_surname%type,
+    u_email IN users.user_email%type,
+	u_password IN users.user_password%type);
     
     
     PROCEDURE del_user(
-        u_email IN "USER".user_email%type);
+        u_email IN users.user_email%type);
         
     PROCEDURE update_user(
-   	u_name "USER".user_name%type,
-    u_mid_name "USER".middle_name%type,
-    u_surname "USER".user_surname%type,
-    u_email "USER".user_email%type
+   	u_name users.user_name%type,
+    u_mid_name users.middle_name%type,
+    u_surname users.user_surname%type,
+    u_email users.user_email%type
     );    
 END;
-
+/
 CREATE OR REPLACE PACKAGE BODY USER_PACKAGE AS
-    FUNCTION LOG_IN(u_email IN "USER".user_email%type,
-	u_password IN "USER".user_password%type)
-    RETURN USER_TABLE PIPELINED AS
-    CURSOR CUR IS
-      SELECT *
-      FROM "USER"
-      WHERE  "USER".user_email = u_email
-        AND "USER".user_password = u_password;
+    FUNCTION LOGIN(u_email IN users.user_email%type,
+	u_password IN users.user_password%type)
+    	RETURN USER_TABLE PIPELINED
+        is
+     email_num integer;
+        cursor us_cur is 
+        select user_role_fk,
+   	user_name,
+    middle_name,
+    user_surname,
+   user_email
+      FROM users
+      WHERE  users.user_email = u_email
+        AND users.user_password = u_password;
     BEGIN
-      FOR rec IN CUR
+        select count(user_email) into email_num
+        FROM users
+      WHERE  users.user_email = u_email
+        AND users.user_password = u_password;
+    if email_num=1 then
+      FOR cur IN us_cur
       LOOP
-        pipe row (rec);
+        pipe row (cur);
       end loop;
-    END;
+       DBMS_OUTPUT.put_line('Successfully logged in');
+      else DBMS_OUTPUT.put_line('You are not signed on yet. Please, sign on');
+      end if;
+END login;
 
-  PROCEDURE REGISTER(u_role IN "USER".user_role_fk%type,
-   	u_name IN "USER".user_name%type,
-    u_mid_name IN "USER".middle_name%type,
-    u_surname IN "USER".user_surname%type,
-    u_email IN "USER".user_email%type,
-	u_password IN "USER".user_password%type) AS
+  PROCEDURE REGISTER(u_role IN users.user_role_fk%type,
+   	u_name IN users.user_name%type,
+    u_mid_name IN users.middle_name%type,
+    u_surname IN users.user_surname%type,
+    u_email IN users.user_email%type,
+	u_password IN users.user_password%type) AS
     BEGIN
-      INSERT INTO "USER"(
+      INSERT INTO users(
         USER_ROLE_FK,
         USER_NAME,
         MIDDLE_NAME,
@@ -74,28 +87,29 @@ CREATE OR REPLACE PACKAGE BODY USER_PACKAGE AS
       u_password);
     END;
  
-PROCEDURE del_user( u_email IN "USER".user_email%type
+PROCEDURE del_user( u_email IN users.user_email%type
     )is
     begin
-        delete from "USER"
+        delete from users
         where user_email = u_email;
 end del_user; 
 
 PROCEDURE update_user(
-   	u_name "USER".user_name%type,
-    u_mid_name "USER".middle_name%type,
-    u_surname "USER".user_surname%type,
-    u_email "USER".user_email%type
+   	u_name users.user_name%type,
+    u_mid_name users.middle_name%type,
+    u_surname users.user_surname%type,
+    u_email users.user_email%type
     ) IS BEGIN
-    UPDATE "USER"
+    UPDATE users
         SET
         USER_NAME = u_name,
         MIDDLE_NAME = u_mid_name,
         USER_SURNAME = u_surname
     WHERE
         user_email = u_email;
-END update_consult; 
+END update_user; 
 
 
 
 END;
+/
