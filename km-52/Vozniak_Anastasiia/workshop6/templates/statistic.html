@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+
+    <a href = "/">Back to main menu</a> <br>
+
+    <div id="bar"></div>
+    <div id="pie"></div>
+</body>
+<script src="https://d3js.org/d3.v5.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <!-- Plotly.js -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <script type="text/javascript">
+        var graphBar = {{graphJSONbar | safe}};
+        var graphPie = {{graphJSONPie | safe}}
+        Plotly.plot('bar',graphBar,{});
+        Plotly.plot('pie',graphPie,{});
+    </script>
+</html>

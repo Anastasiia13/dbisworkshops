@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/addWish">{{subj_form.back}} </a>
+
+
+<form action="http://localhost:5000/addWish1" method="POST">
+                 {{ subj_form.hidden_tag() }}
+                <fieldset>
+                    <legend>Вибрати тему</legend>
+                    <div>
+                    </div>
+
+                        <div>
+                            {{ subj_form.subject_list.label }}
+                            {% for current in subj_form.subject_list%}
+                <tr>
+                    <td>{{current}}</td><td>{{current.label}}</td></br>
+                </tr>
+                {% endfor %}
+
+                            <br>
+                                {% for message in subj_form.subject_list.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+
+                        <div> {{ subj_form.add }} </div>
+                    </div>
+                </fieldset>
+            </form>
+
+</body>
+</html>
+

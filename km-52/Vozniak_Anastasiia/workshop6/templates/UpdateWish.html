@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/showWish">{{update_form.back}} </a>
+
+<form action="http://localhost:5000/updateWish" method="POST">
+                 {{ update_form.hidden_tag() }}
+                <fieldset>
+                    <legend>Редагувати запис</legend>
+                    <div>
+                    </div>
+
+                        <div>
+                             <tr>{{update_form.subject_list.label}}</tr>
+{#                            {{ update_form.subject_list }}#}
+                {% for currents in update_form.subject_list%}
+                <tr>
+                    <td>{{currents}}</td><td>{{currents.label}}</td></br>
+                </tr>
+                {% endfor %}
+                            <br>
+                                {% for message in update_form.subject_list.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ update_form.begin.label }}     {{ update_form.begin }}
+
+                            <br>
+                                {% for message in update_form.begin.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+
+
+                            {{ result }}
+                        <div> {{ update_form.add }} </div>
+                    </div>
+                </fieldset>
+            </form>
+</body>
+</html>
+

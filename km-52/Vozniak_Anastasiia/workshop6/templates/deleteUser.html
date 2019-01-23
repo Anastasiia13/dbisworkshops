@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+   <body>
+
+      <h2 style = "text-align: center;">Login Form</h2>
+      <form action = "http://localhost:5000/deleteUser" method = post>
+          <fieldset>
+
+              <legend>Видалити користувача</legend>
+                {{ myform.hidden_tag() }}
+              <div>
+                  {{ myform.deleteUser.label }}      {{ myform.deleteUser }}<br>
+                {% for message in myform.deleteUser.errors %}
+                         <div>{{ message }}</div>
+                {% endfor %}
+
+                  {{ myform.deletebutton }}
+
+
+              </div>
+
+          </fieldset>
+          <div>
+                  {% for message in users %}
+                         <div>{{ message }}</div>
+                {% endfor %}
+          </div>
+
+      </form>
+
+   </body>
+</html>

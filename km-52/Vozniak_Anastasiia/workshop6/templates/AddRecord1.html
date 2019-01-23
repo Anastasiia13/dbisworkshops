@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/addRecord">{{consult_form.back}} </a>
+
+
+<form action="http://localhost:5000/addRecord1" method="POST">
+                 {{ consult_form.hidden_tag() }}
+                <fieldset>
+                    <legend>Вибрати консультацію</legend>
+                    <div>
+                    </div>
+
+                        <div>
+                            {{ consult_form.consult_list.label }}
+                            {% for current in consult_form.consult_list%}
+                <tr>
+                    <td>{{current}}</td><td>{{current.label}}</td></br>
+                </tr>
+                {% endfor %}
+
+                            <br>
+                                {% for message in consult_form.consult_list.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+
+                        <div> {{ consult_form.add }} </div>
+                    </div>
+                </fieldset>
+            </form>
+
+</body>
+</html>
+

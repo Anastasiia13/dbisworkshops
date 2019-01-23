@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/">{{myform.back}} </a>
+
+<form action = "http://localhost:5000/showUsers" method = post>
+    {{ myform.hidden_tag() }}
+        <div>
+            <table>
+
+                    <tr>{{myform.user_list.label}}</tr>
+                {% for current in myform.user_list %}
+                <tr>
+                    <td>{{current}}</td> <td>{{current.label}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    {{myform.delete}} {{myform.update}}
+</form>
+</body>
+</html>

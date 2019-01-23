@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/showConsult">{{add_form.back}} </a>
+<form action="http://localhost:5000/addConsult" method="POST">
+                 {{ add_form.hidden_tag() }}
+                <fieldset>
+                    <legend>Додати консультацію</legend>
+                    <div>
+                    </div>
+
+                        <div>
+                            {{ add_form.subject.label }}     {{ add_form.subject }}
+
+                            <br>
+                                {% for message in add_form.subject.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ add_form.classroom.label }}     {{ add_form.classroom }}
+
+                            <br>
+                                {% for message in add_form.classroom.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ add_form.build.label }}     {{ add_form.build }}
+
+                            <br>
+                                {% for message in add_form.build.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ add_form.begin.label }}     {{ add_form.begin }}
+
+                            <br>
+                                {% for message in add_form.begin.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                        <div>
+                            {{ add_form.cons_end.label }}     {{ add_form.cons_end }}
+
+                            <br>
+                                {% for message in add_form.cons_end.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+                            {{ result }}
+                        <div> {{ add_form.add }} </div>
+                    </div>
+                </fieldset>
+            </form>
+</body>
+</html>
+

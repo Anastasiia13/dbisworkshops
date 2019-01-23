@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/">{{delete_form.back}} </a>
+<form action = "http://localhost:5000/showConsult" method = post>
+    {{ delete_form.hidden_tag() }}
+    <div>
+    </div>
+        <div>
+            <table>
+                <tr>{{delete_form.consult_list.label}}</tr>
+                {% for current in delete_form.consult_list %}
+                <tr>
+                    <td>{{current}}</td> <td>{{current.label}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    <div>
+        {{result}}
+    </div>
+
+    {{delete_form.delete}}
+
+    {{delete_form.update}}
+    <br><br>
+{#    {{myform.consult.label}} {{myform.filter_d}}<br>#}
+{#    {{myform.consult.label}} {{myform.filter_t}}<br>#}
+{#    {{myform.filtering}}#}
+</form>
+
+  <a href="/addConsult">{{delete_form.add}} </a>
+
+</body>
+</html>

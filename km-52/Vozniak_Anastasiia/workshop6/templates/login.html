@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+   <body>
+
+      <h2 style = "text-align: center;">Вхід</h2>
+
+ <a href="/">{{myform.back}} </a>
+      <form action = "http://localhost:5000/login/" method = post>
+         <fieldset>
+            <legend></legend>
+             {{ myform.hidden_tag() }}
+            <div>
+                {{ myform.email.label }}      {{ myform.email }} <br>
+                {% for message in myform.email.errors %}
+                         <div>{{ message }}</div>
+                {% endfor %}
+
+                {{ myform.password.label }}      {{ myform.password }}<br>
+
+
+                {% for message in myform.password.errors %}
+                         <div>{{ message }}</div>
+                {% endfor %}
+{#             <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>#}
+               {{ myform.submit }}
+            </div>
+             {{result}}
+         </fieldset>
+      </form>
+
+   </body>
+</html>

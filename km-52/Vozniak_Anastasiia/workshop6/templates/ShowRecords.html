@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/">{{delete_form.back}} </a>
+<form action = "http://localhost:5000/showRecord" method = post>
+    {{ delete_form.hidden_tag() }}
+    <div>
+    </div>
+        <div>
+            <table>
+                <tr>{{delete_form.record_list.label}}</tr>
+                {% for current in delete_form.record_list %}
+                <tr>
+                    <td>{{current}}</td> <td>{{current.label}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+    <div>
+        {{result}}
+    </div>
+
+    {{delete_form.delete}}
+
+    {{delete_form.update}}
+    <br><br>
+
+</form>
+
+  <a href="/addRecord">{{delete_form.add}} </a>
+
+</body>
+</html>

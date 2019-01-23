@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta charset="UTF-8">
+    <title>First page</title>
+</head>
+<body>
+    <h1>Вітаю,
+        {%if email %}
+            {{user_name}}
+        {% else %}
+            гість
+        {% endif%}!
+    </h1>
+    {%if not email %}
+        <div>
+            <a href="/login" >{{form.auth}}</a>
+            <br><br>
+            <a href="/registration">{{form.reg}}</a>
+            <br>
+        </div>
+    {% endif %}
+
+
+    {%if role=='Адмін'%}
+            <div>
+                <div> <a href="/logout">{{form.logout}}</a></div>
+            <div> <a href="/showUsers">{{form.show_users}}</a></div>
+            <div> <a href="/showStat">{{form.show_stat}}</a></div>
+
+
+            </div>
+    {% endif %}
+
+    {%if role=='Студент'%}
+            <div>
+                <div> <a href="/logout">{{form.logout}}</a></div>
+                <div> <a href="/showRecord">{{form.show_records}}</a></div>
+            <div> <a href="/showWish">{{form.show_wishlist}}</a></div>
+            </div>
+    {% endif %}
+
+    {%if role=='Викладач'%}
+            <div>
+                <div> <a href="/logout">{{form.logout}}</a></div>
+            <div> <a href="/showConsult">{{form.show_consult}}</a></div>
+                 <div> <a href="/showAllRecords">{{form.show_records}}</a></div>
+            <div> <a href="/showAllWish">{{form.show_wishlist}}</a></div>
+
+            </div>
+    {% endif %}
+</body>
+</html>

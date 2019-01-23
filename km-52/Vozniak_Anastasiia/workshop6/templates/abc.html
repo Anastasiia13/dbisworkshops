@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+   <body>
+
+      <h2 style = "text-align: center">country</h2>
+ <a href="/">{{myform.back}} </a>
+      <form action = "http://localhost:5000/abc" method = "post">
+         <fieldset>
+            <legend></legend>
+             {{ myform.hidden_tag() }}
+            <div>
+                {{ myform.country.label }}      {{myform.country}} <br>
+                {% for message in myform.country.errors %}
+                         <div>{{ message }}</div>
+                {% endfor %}
+               {{ myform.submit }}
+            </div>
+             {{result}}
+         </fieldset>
+      </form>
+
+   </body>
+</html>

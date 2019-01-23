@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/showRecord">{{update_form.back}} </a>
+
+<form action="http://localhost:5000/updateRecord" method="POST">
+                 {{ update_form.hidden_tag() }}
+                <fieldset>
+                    <legend>Редагувати запис</legend>
+                    <div>
+                    </div>
+
+
+
+                        <div>
+                            {{ update_form.begin.label }}     {{ update_form.begin }}
+
+                            <br>
+                                {% for message in update_form.begin.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+
+
+                            {{ result }}
+                        <div> {{ update_form.add }} </div>
+                    </div>
+                </fieldset>
+            </form>
+</body>
+</html>
+

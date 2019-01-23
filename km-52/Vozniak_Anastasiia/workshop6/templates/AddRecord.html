@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/showRecord">{{choose_form.back}} </a>
+<form action="http://localhost:5000/addRecord" method="POST">
+                 {{ choose_form.hidden_tag() }}
+                <fieldset>
+                    <legend>Виберіть викладача</legend>
+                    <div>
+                    </div>
+
+                        <div>
+                                                <div>
+                             <tr>{{choose_form.teachers.label}}</tr>
+                {% for current in choose_form.teachers%}
+                <tr>
+                    <td>{{current}}</td><td>{{current.label}}</td></br>
+                </tr>
+                {% endfor %}
+
+                            <br>
+                                {% for message in choose_form.teachers.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+
+                        <div> {{ choose_form.add }} </div>
+                    </div>
+                </fieldset>
+            </form>
+
+
+</body>
+</html>
+

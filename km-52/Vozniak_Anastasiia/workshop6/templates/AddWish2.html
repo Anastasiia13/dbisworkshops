@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+ <a href="/addWish1">{{add_form.back}} </a>
+
+<form action="http://localhost:5000/addWish2" method="POST">
+                 {{ add_form.hidden_tag() }}
+                <fieldset>
+                    <legend>Додати побажання</legend>
+                    <div>
+                    </div>
+
+
+
+                        <div>
+                            {{ add_form.begin.label }}     {{ add_form.begin }}
+
+                            <br>
+                                {% for message in add_form.begin.errors %}
+                                    <div> {{ message }} </div>
+                                {% endfor %}
+                            <br>
+                        </div>
+
+
+
+                            {{ result }}
+                        <div> {{ add_form.add }} </div>
+                    </div>
+                </fieldset>
+            </form>
+</body>
+</html>
+
